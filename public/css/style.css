@@ -16,6 +16,11 @@ body {
     background-color: #fafafa;
 }
 
+html,
+body {
+    overflow-x: hidden;
+    /* kill the white strip */
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -142,22 +147,23 @@ h1, h2, h3, h4 {
     overflow: hidden;
 }
 
-.video-container {
+.image-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -2;
+    overflow: hidden;
 }
 
-.hero-video {
+.hero-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.video-overlay {
+.image-overlay {
     position: absolute;
     top: 0;
     left: 0;

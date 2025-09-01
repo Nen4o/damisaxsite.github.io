@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
     title: 'Marcus Thompson - Jazz Saxophone',
     videoUrl: "/215069_small.mp4",
     musician: {
-      name: 'Damian Vahnqnski',
+      name: 'Damisaxx',
       instrument: 'Saxophone',
       genre: 'Jazz',
       experience: '15+ years',
