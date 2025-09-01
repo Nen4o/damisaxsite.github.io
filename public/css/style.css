@@ -264,6 +264,7 @@ h1, h2, h3, h4 {
 .about {
     padding: 100px 0;
     background: white;
+   
 }
 
 .about-content {
@@ -272,13 +273,27 @@ h1, h2, h3, h4 {
     gap: 60px;
     align-items: center;
     margin-top: 60px;
+    position: relative;
+    z-index: 1;
+  
 }
 
 .about-description {
-    font-size: 1.125rem;
+font-size: 1.125rem;
     line-height: 1.8;
     margin-bottom: 40px;
     color: #374151;
+    position: relative;
+    z-index: 1;
+
+    /* background shield for notes */
+    background: rgba(255, 255, 255, 0.9);
+    /* semi-transparent white */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* optional soft shadow */
+   
 }
 
 .highlights h3 {
@@ -351,6 +366,8 @@ h1, h2, h3, h4 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+   
+
 }
 
 .review-stars {
@@ -752,6 +769,8 @@ html {
     grid-template-columns: 2fr 1fr;
     gap: 60px;
     align-items: start;
+    position: relative;
+        z-index: 1;
 }
 
 .review-form-container {
@@ -759,23 +778,58 @@ html {
     padding: 32px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    
 }
 
 .review-info-title {
     font-size: 1.5rem;
     color: #1e3a8a;
     margin-bottom: 16px;
+position: relative;
+    z-index: 1;
+
+    /* background shield for notes */
+    background: rgba(255, 255, 255, 0.9);
+    /* semi-transparent white */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* optional soft shadow */
 }
 
 .review-info p {
     color: #374151;
     margin-bottom: 24px;
     line-height: 1.7;
+
+position: relative;
+    z-index: 1;
+
+    /* background shield for notes */
+    background: rgba(255, 255, 255, 0.9);
+    /* semi-transparent white */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* optional soft shadow */
 }
 
 .review-guidelines h4 {
     color: #f59e0b;
     margin-bottom: 12px;
+}
+
+.review-guidelines {
+position: relative;
+    z-index: 1;
+
+    /* background shield for notes */
+    background: rgba(255, 255, 255, 0.9);
+    /* semi-transparent white */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* optional soft shadow */
 }
 
 /* Star rating */
@@ -825,3 +879,28 @@ html {
         font-size: 1.25rem;
     }
 }
+
+#noteParticles {
+    position: absolute;
+    /* not fixed anymore */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body {
+    position: relative;
+    /* ensures canvas is relative to page */
+}
+
+/* .hero,
+.about,
+.reviews,
+.add-review,
+.pricing {
+    position: relative;
+    z-index: 1;
+} */

@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Mobile menu toggle
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    
-    hamburger.addEventListener('click', function() {
+
+    hamburger.addEventListener('click', function () {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
     });
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Navbar background change on scroll
     const navbar = document.querySelector('.navbar');
-    
-    window.addEventListener('scroll', function() {
+
+    window.addEventListener('scroll', function () {
         if (window.scrollY > 100) {
             navbar.style.background = 'rgba(30, 58, 138, 0.98)';
         } else {
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -67,15 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission handler
     const bookingForm = document.querySelector('.booking-form');
     if (bookingForm) {
-        bookingForm.addEventListener('submit', function(e) {
+        bookingForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Simple form validation and submission simulation
             const formData = new FormData(this);
-            
+
             // Show success message (in a real app, this would submit to a server)
             alert('Thank you for your inquiry! Marcus will get back to you within 24 hours.');
-            
+
             // Reset form
             this.reset();
         });
@@ -84,9 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Review form submission handler
     const reviewForm = document.querySelector('.review-form');
     if (reviewForm) {
-        reviewForm.addEventListener('submit', function(e) {
+        reviewForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Get form data
             const formData = new FormData(this);
             const reviewData = {
@@ -96,16 +96,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 review: formData.get('review'),
                 date: formData.get('date')
             };
-            
+
             // Validate required fields
             if (!reviewData.name || !reviewData.event || !reviewData.rating || !reviewData.review) {
                 alert('Please fill in all required fields.');
                 return;
             }
-            
+
             // Show success message (in a real app, this would submit to a server)
             alert('Thank you for your review! It will be reviewed and published soon.');
-            
+
             // Reset form
             this.reset();
         });
@@ -113,15 +113,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add loading state to video
     const heroVideo = document.querySelector('.hero-video');
     if (heroVideo) {
-        heroVideo.addEventListener('loadstart', function() {
+        heroVideo.addEventListener('loadstart', function () {
             console.log('Video loading started');
         });
-        
-        heroVideo.addEventListener('canplaythrough', function() {
+
+        heroVideo.addEventListener('canplaythrough', function () {
             console.log('Video loaded successfully');
         });
-        
-        heroVideo.addEventListener('error', function() {
+
+        heroVideo.addEventListener('error', function () {
             console.log('Video failed to load, showing fallback');
             // You could add a fallback image here
             const videoContainer = document.querySelector('.video-container');
@@ -130,13 +130,67 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Parallax effect for hero section
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const scrolled = window.pageYOffset;
         const parallax = scrolled * 0.5;
-        
+
         const heroVideo = document.querySelector('.hero-video');
         if (heroVideo) {
             heroVideo.style.transform = `translateY(${parallax}px)`;
         }
     });
+
+    const canvas = document.getElementById("noteParticles");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+        canvas.width = document.documentElement.scrollWidth;
+        canvas.height = document.documentElement.scrollHeight; // full page height
+    }
+    resizeCanvas();
+
+    const notes = ["♪", "♫", "♬", "♩", "♭", "♯"];
+    const particles = [];
+
+    function createParticle() {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height; // anywhere on the page
+        const speed = Math.random() * 1 + 0.3;
+        const size = Math.random() * 20 + 14;
+        const note = notes[Math.floor(Math.random() * notes.length)];
+        const opacity = Math.random() * 0.5 + 0.5;
+
+        particles.push({ x, y, speed, size, note, opacity });
+    }
+
+    function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p, index) => {
+            ctx.font = `${p.size}px Arial`;
+            ctx.fillStyle = `rgba(0, 0, 0, ${p.opacity})`;
+            ctx.fillText(p.note, p.x, p.y);
+
+            p.y -= p.speed;
+            p.x += Math.sin(p.y / 40) * 0.7;
+
+            if (p.y < -50) {
+                particles.splice(index, 1);
+            }
+        });
+    }
+
+    function animate() {
+        drawParticles();
+        requestAnimationFrame(animate);
+    }
+
+    // spawn continuously
+    setInterval(createParticle, 600);
+
+    // kick off animation
+    animate();
+
+    // resize handler
+    window.addEventListener("resize", resizeCanvas);
 });
