@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const notes = ["🎷", "♫", "🎵", "♩", "♭", "♯"];
     const fontSizes = [14, 18, 22, 28, 34];
 
-    const maxParticles = /Mobi|Android/i.test(navigator.userAgent) ? 60 : 150;
+    const maxParticles = /Mobi|Android/i.test(navigator.userAgent) ? 30 : 150;
     const particles = Array.from({ length: maxParticles }, () => ({ alive: false }));
     let nextIndex = 0;
 
@@ -213,13 +213,17 @@ document.addEventListener('DOMContentLoaded', function () {
     let lastSpawn = 0;
     const spawnInterval = 1200; // slower spawn for performance
 
+    let fps = /Mobi|Android/i.test(navigator.userAgent) ? 30 : 60;
+    let lastFrame = 0;
     function animate(now = performance.now()) {
-        if (now - lastSpawn > spawnInterval) {
-            spawnParticle();
-            lastSpawn = now;
+        if (now - lastFrame > 1000 / fps) {
+            lastFrame = now;
+            if (now - lastSpawn > spawnInterval) {
+                spawnParticle();
+                lastSpawn = now;
+            }
+            drawParticles();
         }
-
-        drawParticles();
         requestAnimationFrame(animate);
     }
 
