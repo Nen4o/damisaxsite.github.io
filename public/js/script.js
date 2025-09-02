@@ -139,21 +139,15 @@ document.addEventListener('DOMContentLoaded', function () {
             heroVideo.style.transform = `translateY(${parallax}px)`;
         }
     });
-
     const canvas = document.getElementById("noteParticles");
     const ctx = canvas.getContext("2d");
 
-    function resizeCanvas() {
-        canvas.width = document.documentElement.scrollWidth;
-        canvas.height = document.documentElement.scrollHeight;
-    }
-    resizeCanvas();
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const maxParticles = isMobile ? 60 : 150;
 
     const notes = ["🎷", "♫", "🎵", "♩", "♭", "♯"];
     const fontSizes = [14, 18, 22, 28, 34];
 
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    const maxParticles = isMobile ? 60 : 150;
     const particles = Array.from({ length: maxParticles }, () => ({ alive: false }));
 
     const cache = {};
@@ -184,18 +178,38 @@ document.addEventListener('DOMContentLoaded', function () {
         const note = notes[Math.floor(Math.random() * notes.length)];
         const opacity = Math.random() * 0.5 + 0.5;
 
-        // For mobile, we ignore speed and movement
         const speed = isMobile ? 0 : Math.random() * 1 + 0.3;
-
         return { x, y, speed, size, note, opacity, alive: true };
     }
 
-    // Spawn all particles at once if mobile
-    if (isMobile) {
+    // Spawn mobile particles once and keep them
+    if (isMobile && particles.every(p => !p.alive)) {
         for (let i = 0; i < maxParticles; i++) {
             particles[i] = createParticle();
         }
     }
+
+    function resizeCanvas() {
+        const oldWidth = canvas.width;
+        const oldHeight = canvas.height;
+
+        canvas.width = document.documentElement.scrollWidth;
+        canvas.height = document.documentElement.scrollHeight;
+
+        // Recalculate mobile particle positions relative to new size
+        if (isMobile) {
+            const widthRatio = canvas.width / oldWidth || 1;
+            const heightRatio = canvas.height / oldHeight || 1;
+
+            particles.forEach(p => {
+                p.x *= widthRatio;
+                p.y *= heightRatio;
+            });
+
+            drawParticles(); // redraw after resize
+        }
+    }
+    resizeCanvas();
 
     function drawParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -207,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const img = getNoteImage(p.note, p.size, p.opacity);
             ctx.drawImage(img, p.x - p.size, p.y - p.size);
 
-            // Only move particles if not on mobile
             if (!isMobile) {
                 p.y -= p.speed;
                 p.x += Math.sin(p.y / 40) * 0.5;
@@ -217,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Only animate if not on mobile (mobile particles stay static)
+    // Animate only for non-mobile
     if (!isMobile) {
         let lastSpawn = 0;
         const spawnInterval = 1200;
@@ -228,18 +241,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (nextIndex >= 0) particles[nextIndex] = createParticle();
                 lastSpawn = now;
             }
-
             drawParticles();
             requestAnimationFrame(animate);
         }
-
         animate();
     } else {
-        // Draw static particles once on mobile
-        drawParticles();
+        drawParticles(); // mobile static
     }
 
     window.addEventListener("resize", resizeCanvas);
+
 
     // window.addEventListener("load", () => {
     //     document.getElementById("loader").classList.add("hidden");
