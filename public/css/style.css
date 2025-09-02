@@ -577,6 +577,9 @@ font-size: 1.125rem;
     background: #111827;
     color: white;
     padding: 60px 0 20px;
+
+    position: relative;
+    z-index: 1;
 }
 
 .footer-container {

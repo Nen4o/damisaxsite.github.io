@@ -145,52 +145,81 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function resizeCanvas() {
         canvas.width = document.documentElement.scrollWidth;
-        canvas.height = document.documentElement.scrollHeight; // full page height
+        canvas.height = document.documentElement.scrollHeight;
     }
     resizeCanvas();
 
-    const notes = ["♪", "♫", "♬", "♩", "♭", "♯"];
+    const notes = ["🎷", "♫", "🎵", "♩", "♭", "♯"];
+    const fontSizes = [14, 18, 22, 28, 34]; // limited set of sizes
+
     const particles = [];
+    const maxParticles = 150; // cap
+    let lastSpawn = 0;
+    const spawnInterval = 1000; // ms
 
     function createParticle() {
         const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height; // anywhere on the page
+        const y = Math.random() * canvas.height; // start below screen
         const speed = Math.random() * 1 + 0.3;
-        const size = Math.random() * 20 + 14;
+        const size = fontSizes[Math.floor(Math.random() * fontSizes.length)];
         const note = notes[Math.floor(Math.random() * notes.length)];
         const opacity = Math.random() * 0.5 + 0.5;
 
-        particles.push({ x, y, speed, size, note, opacity });
+        return { x, y, speed, size, note, opacity, alive: true };
     }
 
     function drawParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        particles.forEach((p, index) => {
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            if (!p.alive) continue;
+
             ctx.font = `${p.size}px Arial`;
             ctx.fillStyle = `rgba(0, 0, 0, ${p.opacity})`;
             ctx.fillText(p.note, p.x, p.y);
 
+            // update position
             p.y -= p.speed;
             p.x += Math.sin(p.y / 40) * 0.7;
 
+            // mark dead instead of splicing
             if (p.y < -50) {
-                particles.splice(index, 1);
+                p.alive = false;
             }
-        });
+        }
     }
 
-    function animate() {
-        drawParticles();
+    let lastTime = performance.now();
+    function animate(now = performance.now()) {
+        const delta = now - lastTime;
+        lastTime = now;
+
+        // spawn new particles if under limit
+        if (now - lastSpawn > spawnInterval) {
+            // find a dead slot first
+            let reused = false;
+            for (let i = 0; i < particles.length; i++) {
+                if (!particles[i].alive) {
+                    particles[i] = createParticle();
+                    reused = true;
+                    break;
+                }
+            }
+            // if no dead slot, push a new one (if under cap)
+            if (!reused && particles.length < maxParticles) {
+                particles.push(createParticle());
+            }
+            lastSpawn = now;
+        }
+
+        drawParticles(delta);
         requestAnimationFrame(animate);
     }
 
-    // spawn continuously
-    setInterval(createParticle, 600);
-
-    // kick off animation
     animate();
-
-    // resize handler
     window.addEventListener("resize", resizeCanvas);
 });
