@@ -152,8 +152,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const notes = ["🎷", "♫", "🎵", "♩", "♭", "♯"];
     const fontSizes = [14, 18, 22, 28, 34]; // limited set of sizes
 
+
+
+    // cache for prerendered note images
+    const cache = {};
+    function getNoteImage(note, size, opacity) {
+        const key = `${note}-${size}-${opacity}`;
+        if (cache[key]) return cache[key];
+
+        const off = document.createElement("canvas");
+        off.width = size * 2;
+        off.height = size * 2;
+        const offCtx = off.getContext("2d");
+        offCtx.font = `${size}px Arial`;
+        offCtx.textAlign = "center";
+        offCtx.textBaseline = "middle";
+        offCtx.fillStyle = `rgba(0,0,0,${opacity})`;
+        offCtx.fillText(note, size, size);
+
+        cache[key] = off;
+        return off;
+    }
+
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
     const particles = [];
-    const maxParticles = 150; // cap
+    maxParticles = isMobile ? 60 : 150; // lower for phones
     let lastSpawn = 0;
     const spawnInterval = 1000; // ms
 
@@ -171,27 +195,23 @@ document.addEventListener('DOMContentLoaded', function () {
     function drawParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             if (!p.alive) continue;
 
-            ctx.font = `${p.size}px Arial`;
-            ctx.fillStyle = `rgba(0, 0, 0, ${p.opacity})`;
-            ctx.fillText(p.note, p.x, p.y);
+            const img = getNoteImage(p.note, p.size, p.opacity);
+            ctx.drawImage(img, p.x - p.size, p.y - p.size);
 
             // update position
             p.y -= p.speed;
-            p.x += Math.sin(p.y / 40) * 0.7;
+            p.x += Math.sin(p.y / 40) * 0.5;
 
-            // mark dead instead of splicing
             if (p.y < -50) {
                 p.alive = false;
             }
         }
     }
+
 
     let lastTime = performance.now();
     function animate(now = performance.now()) {
