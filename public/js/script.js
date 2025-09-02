@@ -150,40 +150,36 @@ document.addEventListener('DOMContentLoaded', function () {
     resizeCanvas();
 
     const notes = ["🎷", "♫", "🎵", "♩", "♭", "♯"];
-    const fontSizes = [14, 18, 22, 28, 34]; // limited set of sizes
+    const fontSizes = [14, 18, 22, 28, 34];
 
+    const maxParticles = /Mobi|Android/i.test(navigator.userAgent) ? 60 : 150;
+    const particles = Array.from({ length: maxParticles }, () => ({ alive: false }));
+    let nextIndex = 0;
 
-
-    // cache for prerendered note images
     const cache = {};
     function getNoteImage(note, size, opacity) {
-        const key = `${note}-${size}-${opacity}`;
+        const roundedOpacity = Math.round(opacity * 10) / 10; // fewer variations
+        const key = `${note}-${size}-${roundedOpacity}`;
         if (cache[key]) return cache[key];
 
         const off = document.createElement("canvas");
         off.width = size * 2;
         off.height = size * 2;
         const offCtx = off.getContext("2d");
+
         offCtx.font = `${size}px Arial`;
         offCtx.textAlign = "center";
         offCtx.textBaseline = "middle";
-        offCtx.fillStyle = `rgba(0,0,0,${opacity})`;
+        offCtx.fillStyle = `rgba(0,0,0,${roundedOpacity})`;
         offCtx.fillText(note, size, size);
 
         cache[key] = off;
         return off;
     }
 
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-    const particles = [];
-    maxParticles = isMobile ? 60 : 150; // lower for phones
-    let lastSpawn = 0;
-    const spawnInterval = 1000; // ms
-
     function createParticle() {
         const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height; // start below screen
+        const y = Math.random() * canvas.height;
         const speed = Math.random() * 1 + 0.3;
         const size = fontSizes[Math.floor(Math.random() * fontSizes.length)];
         const note = notes[Math.floor(Math.random() * notes.length)];
@@ -192,54 +188,46 @@ document.addEventListener('DOMContentLoaded', function () {
         return { x, y, speed, size, note, opacity, alive: true };
     }
 
+    function spawnParticle() {
+        particles[nextIndex] = createParticle();
+        nextIndex = (nextIndex + 1) % maxParticles;
+    }
+
     function drawParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        for (let i = 0; i < particles.length; i++) {
+        for (let i = 0; i < maxParticles; i++) {
             const p = particles[i];
             if (!p.alive) continue;
 
             const img = getNoteImage(p.note, p.size, p.opacity);
             ctx.drawImage(img, p.x - p.size, p.y - p.size);
 
-            // update position
             p.y -= p.speed;
             p.x += Math.sin(p.y / 40) * 0.5;
 
-            if (p.y < -50) {
-                p.alive = false;
-            }
+            if (p.y < -50) p.alive = false;
         }
     }
 
+    let lastSpawn = 0;
+    const spawnInterval = 1200; // slower spawn for performance
 
-    let lastTime = performance.now();
     function animate(now = performance.now()) {
-        const delta = now - lastTime;
-        lastTime = now;
-
-        // spawn new particles if under limit
         if (now - lastSpawn > spawnInterval) {
-            // find a dead slot first
-            let reused = false;
-            for (let i = 0; i < particles.length; i++) {
-                if (!particles[i].alive) {
-                    particles[i] = createParticle();
-                    reused = true;
-                    break;
-                }
-            }
-            // if no dead slot, push a new one (if under cap)
-            if (!reused && particles.length < maxParticles) {
-                particles.push(createParticle());
-            }
+            spawnParticle();
             lastSpawn = now;
         }
 
-        drawParticles(delta);
+        drawParticles();
         requestAnimationFrame(animate);
     }
 
     animate();
     window.addEventListener("resize", resizeCanvas);
+
+
+    // window.addEventListener("load", () => {
+    //     document.getElementById("loader").classList.add("hidden");
+    // });
 });
