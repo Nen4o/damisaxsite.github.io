@@ -11,6 +11,7 @@ dotenv.config();
 const mongodb_url = process.env.mongodb_url;
 
 const app = express();
+
 const PORT = process.env.PORT || 4000;
 
 // Configure Handlebars
@@ -36,11 +37,13 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 // Static files middleware
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'src/public')));
-app.set(express.urlencoded({ extended: false }))
 
 // Routes
 app.use(router);
+
 // app.get('/', (req, res) => {
 //   const data = {
 //     title: 'Marcus Thompson - Jazz Saxophone',

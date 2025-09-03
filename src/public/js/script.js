@@ -86,33 +86,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Review form submission handler
     const reviewForm = document.querySelector('.review-form');
-    if (reviewForm) {
-        reviewForm.addEventListener('submit', function (e) {
-            e.preventDefault();
 
-            // Get form data
-            const formData = new FormData(this);
-            const reviewData = {
-                name: formData.get('name'),
-                event: formData.get('event'),
-                rating: formData.get('rating'),
-                review: formData.get('review'),
-                date: formData.get('date')
-            };
+    // if (reviewForm) {
+    //     reviewForm.addEventListener('submit', function (e) {
+    //         // e.preventDefault();
 
-            // Validate required fields
-            if (!reviewData.name || !reviewData.event || !reviewData.rating || !reviewData.review) {
-                alert('Please fill in all required fields.');
-                return;
-            }
+    //         // Get form data
+    //         const formData = new FormData(this);
 
-            // Show success message (in a real app, this would submit to a server)
-            alert('Thank you for your review! It will be reviewed and published soon.');
+    //         const reviewData = {
+    //             name: formData.get('name'),
+    //             event: formData.get('event'),
+    //             rating: formData.get('rating'),
+    //             review: formData.get('review'),
+    //             date: formData.get('date')
+    //         };
 
-            // Reset form
-            this.reset();
-        });
-    }
+    //         console.log(reviewData);
+
+    //         // Validate required fields
+    //         if (!reviewData.name || !reviewData.event || !reviewData.rating || !reviewData.review) {
+    //             alert('Please fill in all required fields.');
+    //             return;
+    //         }
+
+    //         // Show success message (in a real app, this would submit to a server)
+    //         alert('Thank you for your review! It will be reviewed and published soon.');
+
+    //         // Reset form
+    //         this.reset();
+    //     });
+    // }
     // Add loading state to video
     const heroVideo = document.querySelector('.hero-video');
     if (heroVideo) {

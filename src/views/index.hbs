@@ -21,12 +21,12 @@
         <div class="image-overlay"></div>
     </div>
     <div class="hero-content">
-        <h1 class="hero-title">{{musician.name}}</h1>
-        <p class="hero-subtitle">Professional {{musician.genre}} {{musician.instrument}} Player</p>
-        <p class="hero-description">{{musician.experience}} of soulful performances across {{musician.location}}</p>
+        <h1 class="hero-title">{{data.musician.name}}</h1>
+        <p class="hero-subtitle">{{data.musician.genre}} {{data.musician.instrument}}</p>
+        <p class="hero-description">Eлегантен тон за вашето събитие</p>
         <div class="hero-buttons">
-            <a href="#about" class="btn btn-primary">Discover My Story</a>
-            <a href="#pricing" class="btn btn-secondary">View Packages</a>
+            <a href="#about" class="btn btn-primary">Научи повече за мен</a>
+            <a href="#pricing" class="btn btn-secondary">Виж услугите</a>
         </div>
     </div>
     <div class="scroll-indicator">
@@ -39,12 +39,12 @@
 <section id="about" class="about">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">About Me</h2>
-            <p class="section-subtitle">The Journey Through Jazz</p>
+            <h2 class="section-title">За мен</h2>
+            <p class="section-subtitle">Изкуството през джаза</p>
         </div>
         <div class="about-content">
             <div class="about-text">
-                <p class="about-description">{{about.description}}</p>
+                <p class="about-description">{{data.about.description}}</p>
                 {{!-- <div class="highlights">
                     <h3>Career Highlights</h3>
                     <ul class="highlights-list">
@@ -55,7 +55,7 @@
                 </div> --}}
             </div>
             <div class="about-image">
-                <img src="/6-20.JPG" alt="{{musician.name}} playing saxophone" class="musician-photo">
+                <img src="/6-20.JPG" alt="{{data.musician.name}} playing saxophone" class="musician-photo">
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
 
             <!-- Review Form -->
             <div class="review-form-container">
-                <form class="review-form booking-form">
+                <form method="post" action="/add-review" class="review-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="reviewer-name">Your Name</label>
