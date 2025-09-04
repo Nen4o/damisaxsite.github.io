@@ -262,7 +262,7 @@
             <p class="section-subtitle">Professional music for every occasion</p>
         </div>
         <div class="pricing-grid">
-            {{#each pricing}}
+            {{#each data.pricing}}
             <div class="pricing-card {{#if @first}}featured{{/if}}">
                 {{#if @first}}<div class="popular-badge">Most Popular</div>{{/if}}
                 <h3 class="pricing-title">{{title}}</h3>
