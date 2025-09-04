@@ -20,14 +20,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <span class="logo-text">{{musician.name}}</span>
+                <span class="logo-text">{{data.musician.name}}</span>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="#add-review" class="nav-link">Add Review</a></li>
-                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#home" class="nav-link">Начало</a></li>
+                <li><a href="#about" class="nav-link">За мен</a></li>
+                <li><a href="#reviews" class="nav-link">Оценки</a></li>
+                <li><a href="#add-review" class="nav-link">Добави Оценка</a></li>
+                <li><a href="#pricing" class="nav-link">Ценораспис</a></li>
                 {{!-- <li><a href="#contact" class="nav-link contact-btn">Book Now</a></li> --}}
             </ul>
             <div class="hamburger">
@@ -46,28 +46,30 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>{{musician.name}}</h3>
-                    <p>Professional {{musician.genre}} {{musician.instrument}} Player</p>
+                    <h3>{{data.musician.name}}</h3>
+                    <p>{{data.musician.genre}}</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Email: booking@marcusthompson.com</p>
-                    <p>Phone: (555) 123-4567</p>
-                    <p>{{musician.location}}</p>
+                    <h4>Контакти</h4>
+                    <p>Email: damivakh@gmail.com</p>
+                    <p>Телефон: +359 88 428 6816</p>
+                    <p>{{data.musician.location}}</p>
                 </div>
                 <div class="footer-section">
                     <h4>Follow</h4>
                     <div class="social-links">
-                        <a href="#" class="social-link">Instagram</a>
-                        <a href="#" class="social-link">Facebook</a>
+                        <a target="_blank" href="https://www.instagram.com/damisaxx?igsh=ZWU4NjJxYTkxbjcz"
+                            class="social-link">Instagram</a>
+                        <a target="_blank" href="https://www.facebook.com/share/1CKoKZE5Ut/"
+                            class="social-link">Facebook</a>
                         {{!-- <a href="#" class="social-link">YouTube</a>
                         <a href="#" class="social-link">Spotify</a> --}}
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 {{musician.name}}. All rights reserved.</p>
-                <p>Developed by <strong>Minko</strong></p>
+                <p>&copy; 2025 {{data.musician.name}}. All rights reserved.</p>
+                <p>Developed by <a href="https://minkourchev.com" style="color: white;"><strong>Minko</strong></a></p>
             </div>
         </div>
     </footer>

@@ -145,11 +145,14 @@ h4 {
 .hero {
     position: relative;
     height: 100vh;
+    /* full screen */
     display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* move text down */
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
+    text-align: center;
+}   
 
 .image-container {
     position: absolute;
@@ -178,12 +181,21 @@ h4 {
 }
 
 .hero-content {
-    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.5);
+    /* semi-transparent black */
+    padding: 20px 30px;
+    border-radius: 12px;
+    /* rounded corners */
+    display: inline-block;
+    /* shrink background to text size */
     color: white;
-    z-index: 1;
-    max-width: 800px;
-    padding: 0 24px;
+    max-width: 80%;
+    /* keep it from being too wide */
+    text-align: center;
 }
+
 
 .hero-title {
     font-size: 4rem;
@@ -196,6 +208,7 @@ h4 {
     margin-bottom: 16px;
     color: #D4A373;
     animation: fadeInUp 1s ease-out 0.2s both;
+   
 }
 
 .hero-description {
@@ -511,6 +524,63 @@ h4 {
     background: #8D2040;
 }
 
+/* Специален стил за картата за транспорт */
+.pricing-card.transport-card {
+    border: 2px dashed #8D2040;
+    /* Различна рамка */
+    background: #fdf6f8;
+    /* Лека розова основа */
+    text-align: left;
+    /* По-четим текст */
+
+    /* Новото: центриране */
+        grid-column: 1 / -1;
+        /* заема цял ред в grid */
+        max-width: 500px;
+        /* ограничаваме ширината */
+        margin: 0 auto;
+        /* центриране */
+}
+
+.pricing-card.transport-card .pricing-title {
+    color: #8D2040;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.pricing-card.transport-card .pricing-duration {
+    font-weight: 600;
+    color: #5C5C5C;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pricing-card.transport-card .pricing-features {
+    margin: 0;
+    padding-left: 0;
+}
+
+.pricing-card.transport-card .pricing-feature {
+    color: #2B2D42;
+    font-size: 0.95rem;
+    padding: 6px 0 6px 28px;
+    /* повече отстояние отляво */
+    position: relative;
+}
+
+.pricing-card.transport-card .pricing-feature::before {
+    /* content: '🚌'; */
+    position: absolute;
+    left: 0;
+    /* фиксираме иконата в началото */
+    top: 50%;
+    transform: translateY(-50%);
+    /* центрира вертикално */
+    font-size: 1rem;
+}
+
+
 /* Contact Section */
 .contact {
     padding: 100px 0;
@@ -667,6 +737,8 @@ h4 {
 /* Section spacing and background */
 .section-header {
     margin-bottom: 60px;
+    position: relative;
+    z-index: 1;
 }
 
 /* Responsive Design */
@@ -870,7 +942,7 @@ html {
 .star-rating input:checked~label,
 .star-rating label:hover,
 .star-rating label:hover~label {
-    color: #D4A373;
+    color: #FFD700;
 }
 
 /* Responsive */

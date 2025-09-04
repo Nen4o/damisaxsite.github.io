@@ -22,16 +22,16 @@
     </div>
     <div class="hero-content">
         <h1 class="hero-title">{{data.musician.name}}</h1>
-        <p class="hero-subtitle">{{data.musician.genre}} {{data.musician.instrument}}</p>
+        <p class="hero-subtitle">{{data.musician.genre}}</p>
         <p class="hero-description">Eлегантен тон за вашето събитие</p>
         <div class="hero-buttons">
             <a href="#about" class="btn btn-primary">Научи повече за мен</a>
-            <a href="#pricing" class="btn btn-secondary">Виж услугите</a>
+            <a href="#pricing" class="btn btn-secondary">Ценораспис</a>
         </div>
     </div>
-    <div class="scroll-indicator">
+    {{!-- <div class="scroll-indicator">
         <div class="scroll-arrow"></div>
-    </div>
+    </div> --}}
 </section>
 
 
@@ -55,7 +55,7 @@
                 </div> --}}
             </div>
             <div class="about-image">
-                <img src="/6-20.JPG" alt="{{data.musician.name}} playing saxophone" class="musician-photo">
+                <img src="/image/about_me" alt="{{data.musician.name}} playing saxophone" class="musician-photo">
             </div>
         </div>
     </div>
@@ -66,8 +66,8 @@
 <section id="reviews" class="reviews">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">What Clients Say</h2>
-            <p class="section-subtitle">Testimonials from memorable performances</p>
+            <h2 class="section-title">Какво казват клиентите</h2>
+            <p class="section-subtitle">Отзиви от запомнящи се изпълнения</p>
         </div>
         <div class="reviews-grid">
             {{#each reviews}}
@@ -76,7 +76,9 @@
                     <div class="review-stars">
                         {{#repeat rating}}★{{/repeat}}
                     </div>
+                    {{#if date}}
                     <span class="review-date">{{date}}</span>
+                    {{/if}}
                 </div>
                 <p class="review-text">"{{text}}"</p>
                 <div class="review-author">
@@ -84,6 +86,8 @@
                     <span class="review-event">{{event}}</span>
                 </div>
             </div>
+            {{else}}
+            <h1 class="section-title">Още няма оценки!</h1>
             {{/each}}
         </div>
     </div>
@@ -94,8 +98,8 @@
 <section id="add-review" class="add-review">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Share Your Experience</h2>
-            <p class="section-subtitle">Help others discover the magic of live jazz</p>
+            <h2 class="section-title">Споделете вашият опит</h2>
+            <p class="section-subtitle">и помогни на на другите да открият магията на живият джаз</p>
         </div>
 
         <div class="add-review-content">
@@ -105,26 +109,25 @@
                 <form method="post" action="/add-review" class="review-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="reviewer-name">Your Name</label>
-                            <input type="text" id="reviewer-name" name="name" placeholder="Enter your full name"
-                                required>
+                            <label for="reviewer-name">Име</label>
+                            <input type="text" id="reviewer-name" name="name" placeholder="Вашето пълно име" required>
                         </div>
                         <div class="form-group">
-                            <label for="event-type">Event Type</label>
+                            <label for="event-type">Събитие</label>
                             <select id="event-type" name="event" required>
-                                <option value="">Select event type</option>
-                                <option value="Wedding">Wedding</option>
-                                <option value="Corporate Event">Corporate Event</option>
-                                <option value="Private Party">Private Party</option>
-                                <option value="Restaurant/Bar">Restaurant/Bar</option>
-                                <option value="Jazz Club">Jazz Club</option>
-                                <option value="Other">Other</option>
+                                <option value="">Избери събитие</option>
+                                <option value="Свадба">Свадба</option>
+                                <option value="Корпоративно събитие">Корпоративно събитие</option>
+                                <option value="Частно парти">Частно парти</option>
+                                <option value="Рестурант/Бар">Рестурант/Бар</option>
+                                <option value="Джаз клуб">Джаз клуб</option>
+                                <option value="Друго">Друго</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="rating">Rating</label>
+                        <label for="rating">Оценка</label>
                         <div class="star-rating">
                             <input type="radio" id="star5" name="rating" value="5" required>
                             <label for="star5" class="star">★</label>
@@ -140,30 +143,32 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="review-text">Your Review</label>
+                        <label for="review-text">Вашето ревю</label>
                         <textarea id="review-text" name="review"
-                            placeholder="Share your experience with Marcus's performance..." rows="5"
+                            placeholder="Споделете вашето впечатление с изпълнението на Дамян..." rows="5"
                             required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="event-date">Event Date (Optional)</label>
-                        <input type="date" id="event-date" name="date">
+                        <label for="event-date">Дата на събитието (Не е задължително)</label>
+                        <input type="date" value="" id="event-date" name="date">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                    <button type="submit" class="btn btn-primary">Изпратете Оценката</button>
                 </form>
             </div>
 
             <!-- Review Info -->
             <div class="review-info">
-                <h3 class="review-info-title">Why Your Review Matters</h3>
+                <h3 class="review-info-title">Защо вашата Оценка има значение?</h3>
                 <p>
-                    Your feedback helps future clients understand the quality and professionalism of Marcus's
-                    performances. Every review contributes to building trust and showcasing the memorable experiences
-                    created through live jazz music.
+                    Вашата обратна връзка помага на бъдещите клиенти да разберат качеството и професионализма в
+                    изпълненията на Дамян.
+                    Всяко мнение допринася за изграждането на доверие и за представянето на незабравимите изживявания,
+                    създадени чрез жива
+                    джаз музика.
                 </p>
-                <div class="review-guidelines">
+                {{!-- <div class="review-guidelines">
                     <h4>Review Guidelines</h4>
                     <ul>
                         <li class="highlight-item">Share specific details about your event</li>
@@ -171,7 +176,7 @@
                         <li class="highlight-item">Describe the atmosphere Marcus created</li>
                         <li class="highlight-item">Note his professionalism and punctuality</li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
 
         </div>
@@ -258,13 +263,13 @@
 <section id="pricing" class="pricing">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Performance Packages</h2>
-            <p class="section-subtitle">Professional music for every occasion</p>
+            <h2 class="section-title">Ценоразпис</h2>
+            <p class="section-subtitle">Професионална музика за всеки повод</p>
         </div>
         <div class="pricing-grid">
             {{#each data.pricing}}
-            <div class="pricing-card {{#if @first}}featured{{/if}}">
-                {{#if @first}}<div class="popular-badge">Most Popular</div>{{/if}}
+            <div class="pricing-card {{#if popular}}featured{{/if}}">
+                {{#if popular}}<div class="popular-badge">Most Popular</div>{{/if}}
                 <h3 class="pricing-title">{{title}}</h3>
                 <div class="pricing-price">{{price}}</div>
                 <div class="pricing-duration">{{duration}}</div>
@@ -273,9 +278,25 @@
                     <li class="pricing-feature">{{this}}</li>
                     {{/each}}
                 </ul>
-                <button class="btn btn-pricing">Book This Package</button>
+                {{#if conditions}}
+                <p><strong>Важно!</strong></p>
+                {{!-- <div class="pricing-duration"></div> --}}
+                <div class="pricing-duration">{{conditions}}</div>
+                {{/if}}
+                {{!-- <button class="btn btn-pricing">Book This Package</button> --}}
             </div>
             {{/each}}
+
+            <div class="pricing-card transport-card">
+                <h3 class="pricing-title">Информация за транспорт 🚌</h3>
+                <div class="pricing-duration">* Важни уточнения</div>
+                <ul class="pricing-features">
+                    <li class="pricing-feature">0.60 лв./км (двупосочно, смятано от мястото на тръгване: гр. Троян)</li>
+                    {{!-- <li class="pricing-feature">Транспортните разходи се изчисляват допълнително</li>
+                    <li class="pricing-feature">Безплатен транспорт в рамките на града</li>
+                    <li class="pricing-feature">Договаряне при по-дълги пътувания</li> --}}
+                </ul>
+            </div>
         </div>
     </div>
 </section>

@@ -7,9 +7,9 @@ router.get('/', async (req, res) => {
         title: 'Damisaxx - Джаз Саксофонист',
         videoUrl: "/215069_small.mp4",
         musician: {
-            name: 'Damisaxx',
+            name: 'DAMISAXX',
             instrument: 'Саксофон',
-            genre: 'Джаз',
+            genre: 'Поп и Джаз',
             experience: '2+ години',
             location: 'Троян'
         },
@@ -48,40 +48,43 @@ router.get('/', async (req, res) => {
         // ],
         pricing: [
             {
-                title: 'Solo Performance',
-                duration: '2-3 hours',
-                price: '$800-1,200',
+                title: '✨ Пакет "Музикален акцент"',
+                duration: 'До 1 час музика',
+                price: '100 лв. + транспорт',
                 features: [
-                    'Professional sound system included',
-                    'Repertoire of 100+ jazz standards',
-                    'Custom song arrangements available',
-                    'Professional attire'
+                    'Частни събития',
+                    'Домашни партита',
+                    'Романтични вечери',
+                    'Изненади'
                 ]
             },
             {
-                title: 'Duo Performance',
-                duration: '2-3 hours',
-                price: '$1,400-1,800',
+                title: '🥂 Пакет „Welcome Drink“',
+                duration: '45 мин. до 1 ч. 30 мин.',
+                price: '200 лв. + транспорт',
                 features: [
-                    'Saxophone + Piano/Guitar',
-                    'Enhanced musical arrangements',
-                    'Professional sound system',
-                    'Coordinated performance attire',
-                    'Special requests accommodated'
-                ]
+                    'Сватби',
+                    'Кръщенета',
+                    'Корпоративни събития',
+                    'Стилни поводи',
+                    // 'Special requests accommodated'
+                ],
+                popular: true,
             },
             {
-                title: 'Wedding Package',
-                duration: '4-5 hours',
-                price: '$2,000-2,800',
+                title: '🌙 Пакет „Дълга вечер“',
+                duration: '50 лв. за всеки следващ час',
+                price: '150 лв. за първия час',
                 features: [
-                    'Ceremony processional music',
-                    'Cocktail hour performance',
-                    'Reception entertainment',
-                    'Microphone for announcements',
-                    'Custom song learning (3 songs max)'
-                ]
-            }
+                    'Фонова музика за ресторанти и барове',
+                    // 'Cocktail hour performance',
+                    // 'Reception entertainment',
+                    // 'Microphone for announcements',
+                    // 'Custom song learning (3 songs max)'
+                ],
+                conditions: "Осигурена храна и напитки от заведението + транспорт"
+            },
+
         ]
     };
 
@@ -96,13 +99,20 @@ router.post('/add-review', async (req, res) => {
     const dateStr = data.date;
     const date = new Date(dateStr);
 
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() is 0-based
-    const day = String(date.getDate()).padStart(2, '0');
-    const year = date.getFullYear();
+    const isDate = req.body.date != 'NaN-NaN-NaN'
+    console.log(date);
+    console.log(isDate);
 
-    const formattedDate = `${month}-${day}-${year}`;
+    let formattedDate = '';
+    if (date != 'Invalid Date') {
 
-    console.log(formattedDate);
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() is 0-based
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+
+        formattedDate = `${month}-${day}-${year}`;
+
+    }
 
 
     const reviewData = {
@@ -110,7 +120,7 @@ router.post('/add-review', async (req, res) => {
         event: data.event,
         rating: data.rating,
         text: data.review,
-        date: formattedDate
+        date: isDate ? formattedDate : '',
     }
 
     console.log(reviewData);
