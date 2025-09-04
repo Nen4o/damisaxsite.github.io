@@ -99,7 +99,7 @@
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">Споделете вашият опит</h2>
-            <p class="section-subtitle">и помогни на на другите да открият магията на живият джаз</p>
+            <p class="section-subtitle">и помогни на на другите да открият магията на damisaxx</p>
         </div>
 
         <div class="add-review-content">
@@ -120,7 +120,7 @@
                                 <option value="Корпоративно събитие">Корпоративно събитие</option>
                                 <option value="Частно парти">Частно парти</option>
                                 <option value="Рестурант/Бар">Рестурант/Бар</option>
-                                <option value="Джаз клуб">Джаз клуб</option>
+                                {{!-- <option value="Джаз клуб">Джаз клуб</option> --}}
                                 <option value="Друго">Друго</option>
                             </select>
                         </div>
@@ -160,7 +160,7 @@
 
             <!-- Review Info -->
             <div class="review-info">
-                <h3 class="review-info-title">Защо вашата Оценка има значение?</h3>
+                <h3 class="review-info-title">Защо вашата отзив има значение?</h3>
                 <p>
                     Вашата обратна връзка помага на бъдещите клиенти да разберат качеството и професионализма в
                     изпълненията на Дамян.
@@ -264,12 +264,12 @@
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">Ценоразпис</h2>
-            <p class="section-subtitle">Професионална музика за всеки повод</p>
+            <p class="section-subtitle">за елегантен тон на вашето събитие</p>
         </div>
         <div class="pricing-grid">
             {{#each data.pricing}}
             <div class="pricing-card {{#if popular}}featured{{/if}}">
-                {{#if popular}}<div class="popular-badge">Most Popular</div>{{/if}}
+                {{#if popular}}<div class="popular-badge">Най-избиран</div>{{/if}}
                 <h3 class="pricing-title">{{title}}</h3>
                 <div class="pricing-price">{{price}}</div>
                 <div class="pricing-duration">{{duration}}</div>
