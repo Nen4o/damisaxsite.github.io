@@ -25,7 +25,7 @@
         <p class="hero-subtitle">{{data.musician.genre}}</p>
         <p class="hero-description">Eлегантен тон за вашето събитие</p>
         <div class="hero-buttons">
-            <a href="#about" class="btn btn-primary">Научи повече за мен</a>
+            <a href="#reviews" class="btn btn-primary">Отзиви</a>
             <a href="#pricing" class="btn btn-secondary">Ценораспис</a>
         </div>
     </div>
@@ -87,101 +87,13 @@
                 </div>
             </div>
             {{else}}
-            <h1 class="section-title">Още няма оценки!</h1>
+            <h1 class="section-title">Още няма отзиви!</h1>
             {{/each}}
         </div>
     </div>
 </section>
 
-{{!--Add Reviews --}}
 
-<section id="add-review" class="add-review">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Споделете вашият опит</h2>
-            <p class="section-subtitle">и помогни на на другите да открият магията на damisaxx</p>
-        </div>
-
-        <div class="add-review-content">
-
-            <!-- Review Form -->
-            <div class="review-form-container">
-                <form method="post" action="/add-review" class="review-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="reviewer-name">Име</label>
-                            <input type="text" id="reviewer-name" name="name" placeholder="Вашето пълно име" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="event-type">Събитие</label>
-                            <select id="event-type" name="event" required>
-                                <option value="">Избери събитие</option>
-                                <option value="Свадба">Свадба</option>
-                                <option value="Корпоративно събитие">Корпоративно събитие</option>
-                                <option value="Частно парти">Частно парти</option>
-                                <option value="Рестурант/Бар">Рестурант/Бар</option>
-                                {{!-- <option value="Джаз клуб">Джаз клуб</option> --}}
-                                <option value="Друго">Друго</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rating">Оценка</label>
-                        <div class="star-rating">
-                            <input type="radio" id="star5" name="rating" value="5" required>
-                            <label for="star5" class="star">★</label>
-                            <input type="radio" id="star4" name="rating" value="4">
-                            <label for="star4" class="star">★</label>
-                            <input type="radio" id="star3" name="rating" value="3">
-                            <label for="star3" class="star">★</label>
-                            <input type="radio" id="star2" name="rating" value="2">
-                            <label for="star2" class="star">★</label>
-                            <input type="radio" id="star1" name="rating" value="1">
-                            <label for="star1" class="star">★</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="review-text">Вашето ревю</label>
-                        <textarea id="review-text" name="review"
-                            placeholder="Споделете вашето впечатление с изпълнението на Дамян..." rows="5"
-                            required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="event-date">Дата на събитието (Не е задължително)</label>
-                        <input type="date" value="" id="event-date" name="date">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Изпратете Оценката</button>
-                </form>
-            </div>
-
-            <!-- Review Info -->
-            <div class="review-info">
-                <h3 class="review-info-title">Защо вашата отзив има значение?</h3>
-                <p>
-                    Вашата обратна връзка помага на бъдещите клиенти да разберат качеството и професионализма в
-                    изпълненията на Дамян.
-                    Всяко мнение допринася за изграждането на доверие и за представянето на незабравимите изживявания,
-                    създадени чрез жива
-                    джаз музика.
-                </p>
-                {{!-- <div class="review-guidelines">
-                    <h4>Review Guidelines</h4>
-                    <ul>
-                        <li class="highlight-item">Share specific details about your event</li>
-                        <li class="highlight-item">Mention song requests or special moments</li>
-                        <li class="highlight-item">Describe the atmosphere Marcus created</li>
-                        <li class="highlight-item">Note his professionalism and punctuality</li>
-                    </ul>
-                </div> --}}
-            </div>
-
-        </div>
-    </div>
-</section>
 
 {{!-- <section id="add-review" class="add-review">
     <div class="container">
@@ -259,7 +171,6 @@
 </section> --}}
 
 {{!--Pricing --}}
-
 <section id="pricing" class="pricing">
     <div class="container">
         <div class="section-header">
@@ -291,12 +202,104 @@
                 <h3 class="pricing-title">Информация за транспорт 🚌</h3>
                 <div class="pricing-duration">* Важни уточнения</div>
                 <ul class="pricing-features">
-                    <li class="pricing-feature">0.60 лв./км (двупосочно, смятано от мястото на тръгване: гр. Троян)</li>
+                    <li class="pricing-feature">0.50лв.-0.25€/км (двупосочно, смятано от мястото на тръгване: гр. Троян)
+                    </li>
                     {{!-- <li class="pricing-feature">Транспортните разходи се изчисляват допълнително</li>
                     <li class="pricing-feature">Безплатен транспорт в рамките на града</li>
                     <li class="pricing-feature">Договаряне при по-дълги пътувания</li> --}}
                 </ul>
             </div>
+        </div>
+    </div>
+</section>
+
+{{!--Add Reviews --}}
+<section id="add-review" class="add-review">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Споделете вашият отзив</h2>
+            <p class="section-subtitle">и помогни на на другите да открият магията на damisaxx</p>
+        </div>
+
+        <div class="add-review-content">
+
+            <!-- Review Form -->
+            <div class="review-form-container">
+                <form method="post" action="/add-review" class="review-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reviewer-name">Име</label>
+                            <input type="text" id="reviewer-name" name="name" placeholder="Вашето пълно име" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-type">Събитие</label>
+                            <select id="event-type" name="event" required>
+                                <option value="">Избери събитие</option>
+                                <option value="Свадба">Свадба</option>
+                                <option value="Корпоративно събитие">Корпоративно събитие</option>
+                                <option value="Частно парти">Частно парти</option>
+                                <option value="Рестурант/Бар">Рестурант/Бар</option>
+                                {{!-- <option value="Джаз клуб">Джаз клуб</option> --}}
+                                <option value="Друго">Друго</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating">Оценка</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5" required>
+                            <label for="star5" class="star">★</label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4" class="star">★</label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3" class="star">★</label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2" class="star">★</label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1" class="star">★</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-text">Вашето ревю</label>
+                        <textarea id="review-text" name="review"
+                            placeholder="Споделете вашето впечатление с изпълнението на Дамян..." rows="5"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event-date">Дата на събитието (Не е задължително)</label>
+                        <input type="date" value="" id="event-date" name="date">
+                    </div>
+
+                    <input type="text" name="website" style="display:none;">
+
+                    <button type="submit" class="btn btn-primary">Изпратете Оценката</button>
+                </form>
+            </div>
+
+            <!-- Review Info -->
+            <div class="review-info">
+                <h3 class="review-info-title">Защо вашата отзив има значение?</h3>
+                <p>
+                    Вашата обратна връзка помага на бъдещите клиенти да разберат качеството и професионализма в
+                    изпълненията на Дамян.
+                    Всяко мнение допринася за изграждането на доверие и за представянето на незабравимите изживявания,
+                    създадени чрез жива
+                    джаз музика.
+                </p>
+                {{!-- <div class="review-guidelines">
+                    <h4>Review Guidelines</h4>
+                    <ul>
+                        <li class="highlight-item">Share specific details about your event</li>
+                        <li class="highlight-item">Mention song requests or special moments</li>
+                        <li class="highlight-item">Describe the atmosphere Marcus created</li>
+                        <li class="highlight-item">Note his professionalism and punctuality</li>
+                    </ul>
+                </div> --}}
+            </div>
+
         </div>
     </div>
 </section>

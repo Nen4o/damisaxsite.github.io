@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
             {
                 title: '✨ Пакет "Музикален акцент"',
                 duration: 'От 3 парчета до 45 минути музика',
-                price: '100 лв. + транспорт',
+                price: '80лв/40€. + транспорт',
                 features: [
                     'Частни събития',
                     'Домашни партита',
@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
             {
                 title: '🥂 Пакет „Welcome Drink“',
                 duration: '45 мин. до 1 ч. 30 мин.',
-                price: '200 лв. + транспорт',
+                price: '170лв./90€ + транспорт',
                 features: [
                     'Сватби',
                     'Кръщенета',
@@ -73,8 +73,8 @@ router.get('/', async (req, res) => {
             },
             {
                 title: '🌙 Пакет „Дълга вечер“',
-                duration: '50 лв. за всеки следващ час',
-                price: '150 лв. за първия час',
+                duration: '40/20€ лв. за всеки следващ час',
+                price: '130/70€ лв. за първия час',
                 features: [
                     'Фонова музика за ресторанти и барове',
                     // 'Cocktail hour performance',
@@ -94,14 +94,14 @@ router.get('/', async (req, res) => {
 
 
 router.post('/add-review', async (req, res) => {
+    if (req.body.website) {
+        return res.status(400).redirect('/');
+    }
+
     console.log(req.body);
     const data = req.body;
     const dateStr = data.date;
     const date = new Date(dateStr);
-
-    const isDate = req.body.date != 'NaN-NaN-NaN'
-    console.log(date);
-    console.log(isDate);
 
     let formattedDate = '';
     if (date != 'Invalid Date') {
@@ -120,7 +120,7 @@ router.post('/add-review', async (req, res) => {
         event: data.event,
         rating: data.rating,
         text: data.review,
-        date: isDate ? formattedDate : '',
+        date: formattedDate,
     }
 
     console.log(reviewData);
