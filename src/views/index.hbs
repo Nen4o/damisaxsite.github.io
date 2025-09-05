@@ -62,7 +62,6 @@
 </section>
 
 {{!-- Reviews --}}
-
 <section id="reviews" class="reviews">
     <div class="container">
         <div class="section-header">
@@ -92,8 +91,6 @@
         </div>
     </div>
 </section>
-
-
 
 {{!-- <section id="add-review" class="add-review">
     <div class="container">
@@ -182,7 +179,14 @@
             <div class="pricing-card {{#if popular}}featured{{/if}}">
                 {{#if popular}}<div class="popular-badge">Най-избиран</div>{{/if}}
                 <h3 class="pricing-title">{{title}}</h3>
+                {{#if oldPrice}}
+                <div class="pricing-price">
+                    <span class="old-price">{{oldPrice}}</span>
+                    <span class="new-price">{{price}}</span>
+                </div>
+                {{else}}
                 <div class="pricing-price">{{price}}</div>
+                {{/if}}
                 <div class="pricing-duration">{{duration}}</div>
                 <ul class="pricing-features">
                     {{#each features}}
@@ -304,52 +308,62 @@
     </div>
 </section>
 
+{{!-- Contacts --}}
 {{!-- <section id="contact" class="contact">
     <div class="container">
         <div class="contact-content">
-            <div class="contact-info">
-                <h2 class="contact-title">Ready to Book?</h2>
-                <p class="contact-description">Let's create an unforgettable musical experience for your event.</p>
+            <div>
+                <h2 class="contact-title">Свържи се с мен</h2>
+                <p class="contact-description">
+                    Ако имаш въпроси или искаш да се свържеш с мен, използвай информацията по-долу:
+                </p>
                 <div class="contact-details">
-                    <div class="contact-item">
-                        <strong>Email:</strong> booking@marcusthompson.com
-                    </div>
-                    <div class="contact-item">
-                        <strong>Phone:</strong> (555) 123-4567
-                    </div>
-                    <div class="contact-item">
-                        <strong>Location:</strong> {{musician.location}}
-                    </div>
+                    <p class="contact-item"><strong>Име:</strong> Дамян Вахнянски</p>
+                    <p class="contact-item"><strong>Телефон:</strong>
+                        +359 88 428 6816
+                    </p>
+                    <p class="contact-item"><strong>Email:</strong>
+                        damivakh@gmail.com
+                    </p>
                 </div>
-            </div>
-            <div class="contact-form">
-                <form class="booking-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Phone Number">
-                    </div>
-                    <div class="form-group">
-                        <input type="date" placeholder="Event Date" required>
-                    </div>
-                    <div class="form-group">
-                        <select required>
-                            <option value="">Select Package</option>
-                            <option value="solo">Solo Performance</option>
-                            <option value="duo">Duo Performance</option>
-                            <option value="wedding">Wedding Package</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Tell me about your event..." rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Inquiry</button>
-                </form>
             </div>
         </div>
     </div>
 </section> --}}
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="contact-content">
+            <div>
+                <h2 class="contact-title">Свържи се с мен</h2>
+                <p class="contact-description">
+                    Ако имаш въпроси или искаш да се свържеш с мен, използвай информацията по-долу:
+                </p>
+                <div class="contact-details">
+                    <p class="contact-item"><strong>Име:</strong> Дамян Вахнянски</p>
+                    <p class="contact-item"><strong>Телефон:</strong>
+                        +359 88 428 6816
+                    </p>
+                    <p class="contact-item"><strong>Email:</strong>
+                        damivakh@gmail.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="social-media">
+                <h3 class="social-title">Подкрепете ме в социалните мрежи</h3>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/damisaxx?igsh=ZWU4NjJxYTkxbjcz" target="_blank"
+                        class="social-link">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/1CKoKZE5Ut/" target="_blank" class="social-link">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Font Awesome за иконките -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

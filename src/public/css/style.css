@@ -580,6 +580,33 @@ h4 {
     font-size: 1rem;
 }
 
+.pricing-price {
+    display: flex;
+    flex-direction: column;
+    /* показва ги един под друг */
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.old-price {
+    font-size: 1.2rem;
+    color: #888;
+    text-decoration: line-through;
+    font-weight: 400;
+    text-align: center;
+    word-break: break-word;
+    /* предотвратява чупене на грозни места */
+}
+
+.new-price {
+    font-size: 1.5rem;
+    color: #8D2040;
+    /* акцент */
+    font-weight: 700;
+    text-align: center;
+    word-break: break-word;
+}
 
 /* Contact Section */
 .contact {
@@ -592,7 +619,7 @@ h4 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .contact-title {
@@ -644,6 +671,33 @@ h4 {
 .form-group textarea:focus {
     outline: none;
     border-color: #D4A373;
+}
+.social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.social-title {
+    font-size: 1.5rem;
+    color: #D4A373;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-link {
+    font-size: 2rem;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-link:hover {
+    color: #D4A373;
+    transform: scale(1.2);
 }
 
 /* Footer */
@@ -1039,6 +1093,34 @@ body.loading {
         transform: rotate(360deg);
     }
 }
+
+
+/* Допълнителни стилове за контактите */
+/* .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-item {
+    font-size: 1.125rem;
+    color: #EAE3D2;
+}
+
+.contact-item strong {
+    color: #D4A373;
+    margin-right: 6px;
+}
+
+.contact-link {
+    color: #EAE3D2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: #D4A373;
+} */
 
 /*--------------------------------------------------------------
 # Preloader
