@@ -11,4 +11,4 @@ const getImageByName = (imgName) => {
 module.exports = {
     createImage,
     getImageByName,
-}
+}   

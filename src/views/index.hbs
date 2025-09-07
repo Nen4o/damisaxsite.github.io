@@ -229,7 +229,7 @@
 
             <!-- Review Form -->
             <div class="review-form-container">
-                <form method="post" action="/add-review" class="review-form">
+                <form id="addReviewForm" method="post" action="/add-review" class="review-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="reviewer-name">Име</label>
@@ -279,7 +279,9 @@
 
                     <input type="text" name="website" style="display:none;">
 
-                    <button type="submit" class="btn btn-primary">Изпратете Оценката</button>
+                    <button type="submit" class="btn btn-primary g-recaptcha"
+                        data-sitekey="6LdqJMErAAAAACXIaSSsxse03T8STk7VwL_JKxZ1" data-callback='onSubmit'
+                        data-action='submit'>Изпратете Оценката</button>
                 </form>
             </div>
 

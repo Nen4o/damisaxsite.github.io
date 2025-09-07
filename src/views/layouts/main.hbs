@@ -92,6 +92,12 @@
     </footer>
     <!-- Preloader -->
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("addReviewForm").submit();
+        }
+    </script>
     <script>
         window.addEventListener("load", () => {
             const loader = document.getElementById("loader");
