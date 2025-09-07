@@ -1094,6 +1094,10 @@ body.loading {
     }
 }
 
+.grecaptcha-badge {
+    visibility: hidden !important;
+}
+
 
 /* Допълнителни стилове за контактите */
 /* .contact-details {
