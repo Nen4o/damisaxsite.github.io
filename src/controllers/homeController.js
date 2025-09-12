@@ -99,10 +99,22 @@ router.post('/add-review', async (req, res) => {
     if (req.body.website) {
         return res.status(400).redirect('/');
     }
+    const token = req.body["g-recaptcha-response"];
+    const secret = "6LdqJMErAAAAACXIaSSsxse03T8STk7VwL_JKxZ1";
+
+    const response = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${secret}&response=${token}`,
+    });
+    const data = await response.json();
+
+    console.log(data);
+
 
     console.log(req.body);
-    const data = req.body;
-    const dateStr = data.date;
+    const formData = req.body;
+    const dateStr = formData.date;
     const date = new Date(dateStr);
 
     let formattedDate = '';
@@ -118,10 +130,10 @@ router.post('/add-review', async (req, res) => {
 
 
     const reviewData = {
-        name: data.name,
-        event: data.event,
-        rating: data.rating,
-        text: data.review,
+        name: formData.name,
+        event: formData.event,
+        rating: formData.rating,
+        text: formData.review,
         date: formattedDate,
     }
 
