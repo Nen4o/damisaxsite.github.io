@@ -277,18 +277,23 @@
                         <input type="date" value="" id="event-date" name="date">
                     </div>
 
-                    <div class="g-recaptcha" data-sitekey="6LfcsscrAAAAALSpjbAnaQlSty588ZqI0h2zPYGs"></div>
+                    <div id="recaptcha-wrapper">
 
-                    <input type="text" name="website" style="display:none;">
+                        <div class="g-recaptcha" data-sitekey="6LfcsscrAAAAALSpjbAnaQlSty588ZqI0h2zPYGs"></div>
+                    </div>
+
+                    {{!-- <input type="text" name="website" style="display:none;"> --}}
 
                     <p>Този сайт е защитен с reCAPTCHA и се прилагат
                         <a href="https://policies.google.com/privacy">Политиката за поверителност</a> и
                         <a href="https://policies.google.com/terms">Условията за ползване</a> на Google.
                     </p>
 
-                    <button type="submit" class="btn btn-primary g-recaptcha"
+                    <button type="submit" class="btn btn-primary" data-action='submit'>Изпратете Оценка</button>
+
+                    {{!-- <button type=" submit" class="btn btn-primary g-recaptcha"
                         data-sitekey="6LdqJMErAAAAACXIaSSsxse03T8STk7VwL_JKxZ1" data-callback='onSubmit'
-                        data-action='submit'>Изпратете Оценката</button>
+                        data-action='submit'>Изпратете Оценката</button> --}}
                 </form>
             </div>
 

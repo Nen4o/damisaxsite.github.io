@@ -100,7 +100,7 @@ router.post('/add-review', async (req, res) => {
         return res.status(400).redirect('/');
     }
     const token = req.body["g-recaptcha-response"];
-    const secret = "6LdqJMErAAAAACXIaSSsxse03T8STk7VwL_JKxZ1";
+    const secret = "6LfcsscrAAAAAGmXizih4UG6o2RDikHSqOVfkVUJ";
 
     const response = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
         method: "POST",
@@ -109,39 +109,43 @@ router.post('/add-review', async (req, res) => {
     });
     const data = await response.json();
 
-    console.log(data);
+    if (data.success) {
+
+        // console.log(req.body);
+        const formData = req.body;
+        const dateStr = formData.date;
+        const date = new Date(dateStr);
+
+        let formattedDate = '';
+        if (date != 'Invalid Date') {
+
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() is 0-based
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = date.getFullYear();
+
+            formattedDate = `${month}-${day}-${year}`;
+
+        }
 
 
-    console.log(req.body);
-    const formData = req.body;
-    const dateStr = formData.date;
-    const date = new Date(dateStr);
+        const reviewData = {
+            name: formData.name,
+            event: formData.event,
+            rating: formData.rating,
+            text: formData.review,
+            date: formattedDate,
+        }
 
-    let formattedDate = '';
-    if (date != 'Invalid Date') {
+        console.log(reviewData);
 
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() is 0-based
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
+        await createReview(reviewData);
 
-        formattedDate = `${month}-${day}-${year}`;
-
+        res.redirect('/#reviews')
+    } else {
+        res.status(400).send("Потвърдете, че не сте робот");
     }
 
 
-    const reviewData = {
-        name: formData.name,
-        event: formData.event,
-        rating: formData.rating,
-        text: formData.review,
-        date: formattedDate,
-    }
-
-    console.log(reviewData);
-
-    await createReview(reviewData);
-
-    res.redirect('/#reviews')
 })
 
 module.exports = router;

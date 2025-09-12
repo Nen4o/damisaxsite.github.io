@@ -85,6 +85,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Review form submission handler
+    document.getElementById("addReviewForm").addEventListener("submit", function (e) {
+        const response = grecaptcha.getResponse(); // взима токена от чекбокса
+        const wrapper = document.getElementById("recaptcha-wrapper");
+
+        if (response.length === 0) {
+            e.preventDefault(); // спира изпращането
+            wrapper.classList.add("recaptcha-error");
+        } else {
+            wrapper.classList.remove("recaptcha-error");
+        }
+    });
     const reviewForm = document.querySelector('.review-form');
 
     // if (reviewForm) {

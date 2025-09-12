@@ -1098,6 +1098,11 @@ body.loading {
     visibility: hidden !important;
 }
 
+.recaptcha-error {
+    border: 2px solid red;
+    padding: 5px;
+    display: inline-block;
+}
 
 /* Допълнителни стилове за контактите */
 /* .contact-details {
